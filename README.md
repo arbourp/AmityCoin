@@ -71,7 +71,7 @@ Twitter - https://twitter.com/AmityCore
 
 Website - https://www.getamitycoin.org
 
-#### Donations
+#### Donations 
 
 AMIT: amitWnmgfgYG4XerZGPLNFd5AM87rUkb3X2q4FcELpPsB4DXtT8YE3mETzAjrYLdDH39pJoCxSUHPU2yqZeY1RsJ1h5DgikVAz
 
