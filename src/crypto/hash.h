@@ -113,9 +113,23 @@ namespace Crypto {
     cn_slow_hash(data, length, reinterpret_cast<char *>(&hash), 1, 1, 0, pagesize, scratchpad, iterations);
   }
 
-  inline void cn_soft_shell_slow_hash_v2(const void *data, size_t length, Hash &hash, uint32_t height) {
+    inline void cn_soft_shell_slow_hash_v1_v2(const void *data, size_t length, Hash &hash, uint32_t height) {
     uint32_t base_offset = (height % CN_SOFT_SHELL_WINDOW_2);
     int32_t offset = (height % (CN_SOFT_SHELL_WINDOW_2 * 2)) - (base_offset * 2);
+    if (offset < 0) {
+      offset = base_offset;
+    }
+
+    uint32_t scratchpad = CN_SOFT_SHELL_MEMORY + (static_cast<uint32_t>(offset) * CN_SOFT_SHELL_PAD_MULTIPLIER);
+    uint32_t iterations = CN_SOFT_SHELL_ITER + (static_cast<uint32_t>(offset) * CN_SOFT_SHELL_ITER_MULTIPLIER);
+    uint32_t pagesize = scratchpad;
+
+    cn_slow_hash(data, length, reinterpret_cast<char *>(&hash), 1, 1, 0, pagesize, scratchpad, iterations);
+  }
+  
+  inline void cn_soft_shell_slow_hash_v2(const void *data, size_t length, Hash &hash, uint32_t height) {
+    uint32_t base_offset = (height % CN_SOFT_SHELL_WINDOW);
+    int32_t offset = (height % (CN_SOFT_SHELL_WINDOW * 2)) - (base_offset * 2);
     if (offset < 0) {
       offset = base_offset;
     }
