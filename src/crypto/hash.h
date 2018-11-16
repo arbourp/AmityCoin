@@ -32,7 +32,8 @@
 #define CN_SOFT_SHELL_ITER_MULTIPLIER   (CN_SOFT_SHELL_PAD_MULTIPLIER / 2)
 #define CN_SOFT_SHELL_WINDOW_2          512 // This needs changing for HF
 #define CN_SOFT_SHELL_MULTIPLIER_2      1 / 7 // same here
-
+#define CN_SOFT_SHELL_PAD_MULTIPLIER_2  (CN_SOFT_SHELL_WINDOW_2 / CN_SOFT_SHELL_MULTIPLIER_2)
+#define CN_SOFT_SHELL_ITER_MULTIPLIER_2 (CN_SOFT_SHELL_PAD_MULTIPLIER_2 / 2)
 
 #if (((CN_SOFT_SHELL_WINDOW * CN_SOFT_SHELL_PAD_MULTIPLIER) + CN_SOFT_SHELL_MEMORY) > CN_PAGE_SIZE)
 #error The CryptoNight Soft Shell Parameters you supplied will exceed normal paging operations.
@@ -120,8 +121,8 @@ namespace Crypto {
       offset = base_offset;
     }
 
-    uint32_t scratchpad = CN_SOFT_SHELL_MEMORY + (static_cast<uint32_t>(offset) * CN_SOFT_SHELL_PAD_MULTIPLIER);
-    uint32_t iterations = CN_SOFT_SHELL_ITER + (static_cast<uint32_t>(offset) * CN_SOFT_SHELL_ITER_MULTIPLIER);
+    uint32_t scratchpad = CN_SOFT_SHELL_MEMORY + (static_cast<uint32_t>(offset) * CN_SOFT_SHELL_PAD_MULTIPLIER_2);
+    uint32_t iterations = CN_SOFT_SHELL_ITER + (static_cast<uint32_t>(offset) * CN_SOFT_SHELL_ITER_MULTIPLIER_2);
     uint32_t pagesize = scratchpad;
 
     cn_slow_hash(data, length, reinterpret_cast<char *>(&hash), 1, 1, 0, pagesize, scratchpad, iterations);
